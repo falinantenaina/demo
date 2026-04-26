@@ -4,7 +4,6 @@ const orderSchema = new mongoose.Schema({
   numeroCommande: {
     type: String,
     unique: true,
-    required: true,
   },
   client: {
     type: mongoose.Schema.Types.ObjectId,
@@ -78,7 +77,7 @@ const orderSchema = new mongoose.Schema({
 });
 
 // Générer un numéro de commande unique
-orderSchema.pre("save", async function (next) {
+orderSchema.pre("save", async function () {
   if (!this.numeroCommande) {
     const date = new Date();
     const year = date.getFullYear();
@@ -87,7 +86,6 @@ orderSchema.pre("save", async function (next) {
     this.numeroCommande = `CMD-${year}${month}-${String(count + 1).padStart(5, "0")}`;
   }
   this.updatedAt = Date.now();
-  next();
 });
 
 const Order = mongoose.model("Order", orderSchema);

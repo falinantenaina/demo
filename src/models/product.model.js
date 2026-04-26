@@ -64,9 +64,8 @@ const productSchema = new mongoose.Schema({
 });
 
 // Mise à jour automatique de updatedAt
-productSchema.pre("save", function (next) {
+productSchema.pre("save", function () {
   this.updatedAt = Date.now();
-  next();
 });
 
 const Product = mongoose.model("Product", productSchema);

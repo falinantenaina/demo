@@ -1,18 +1,19 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import { connectDB } from "./config/database.js";
 import authRoutes from "./routes/auth.route.js";
 import orderRoutes from "./routes/order.route.js";
 import productRoutes from "./routes/product.route.js";
 
-// Charger les variables d'environnement
 dotenv.config();
 
-// Importer les routes
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Initialiser Express
 const app = express();
 
 // Middleware
@@ -20,12 +21,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// Servir les fichiers statiques du frontend
+app.use(express.static(path.join(__dirname, "public")));
+
+// Routes API
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
-// Route de test
+// Route de test API
 app.get("/api", (req, res) => {
   res.json({
     success: true,
@@ -34,24 +38,17 @@ app.get("/api", (req, res) => {
   });
 });
 
-// Gestion des erreurs 404
+// Toutes les autres routes → frontend
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route non trouvée",
-  });
+  res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-// Connexion à MongoDB
-
-// Démarrer le serveur
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   await connectDB();
-
   app.listen(PORT, () => {
-    console.log(`🚀 Serveur démarré sur le port ${PORT}`);
+    console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
     console.log(`📍 Environnement: ${process.env.NODE_ENV || "development"}`);
   });
 };

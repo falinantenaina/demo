@@ -1,0 +1,2476 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quincaillerie Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f0f0d;
+        --bg2: #161613;
+        --bg3: #1e1e1a;
+        --border: #2a2a25;
+        --amber: #f59e0b;
+        --amber2: #d97706;
+        --amber-dim: rgba(245, 158, 11, 0.12);
+        --red: #ef4444;
+        --green: #22c55e;
+        --text: #e8e6df;
+        --text2: #9a9890;
+        --text3: #5a5a55;
+        --card: #191917;
+        --mob-nav-h: 62px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+
+      /* ── HEADER ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(15, 15, 13, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 60px;
+      }
+
+      .logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 0.1em;
+        color: var(--amber);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+      .logo span {
+        color: var(--text);
+      }
+
+      nav {
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+      }
+
+      .nav-btn {
+        background: none;
+        border: none;
+        color: var(--text2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+        letter-spacing: 0.02em;
+      }
+      .nav-btn:hover {
+        background: var(--bg3);
+        color: var(--text);
+      }
+      .nav-btn.active {
+        background: var(--amber-dim);
+        color: var(--amber);
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .cart-btn {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+      }
+      .cart-btn:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+
+      .cart-count {
+        background: var(--amber);
+        color: #000;
+        font-weight: 700;
+        font-size: 0.7rem;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+      }
+
+      .auth-btn {
+        background: var(--amber);
+        color: #000;
+        border: none;
+        padding: 0.4rem 1rem;
+        border-radius: 8px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .auth-btn:hover {
+        background: var(--amber2);
+      }
+
+      .user-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.82rem;
+        color: var(--text2);
+      }
+      .user-chip .role {
+        color: var(--amber);
+        font-weight: 600;
+        font-size: 0.72rem;
+      }
+      .user-chip .logout-x {
+        background: none;
+        border: none;
+        color: var(--text3);
+        cursor: pointer;
+        font-size: 0.8rem;
+        margin-left: 4px;
+        line-height: 1;
+        transition: color 0.15s;
+      }
+      .user-chip .logout-x:hover {
+        color: var(--red);
+      }
+
+      /* ── PAGES ── */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── SHOP PAGE ── */
+      .shop-layout {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 0;
+        min-height: calc(100vh - 60px);
+      }
+
+      .sidebar {
+        background: var(--bg2);
+        border-right: 1px solid var(--border);
+        padding: 1.5rem 1rem;
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+
+      .sidebar-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        color: var(--text3);
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .filter-btn {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: var(--text2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.15rem;
+      }
+      .filter-btn:hover {
+        background: var(--bg3);
+        color: var(--text);
+      }
+      .filter-btn.active {
+        background: var(--amber-dim);
+        color: var(--amber);
+      }
+      .filter-btn .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        flex-shrink: 0;
+      }
+
+      .search-box {
+        width: 100%;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        outline: none;
+        margin-bottom: 1.25rem;
+        transition: border-color 0.2s;
+      }
+      .search-box:focus {
+        border-color: var(--amber);
+      }
+      .search-box::placeholder {
+        color: var(--text3);
+      }
+
+      .shop-main {
+        padding: 2rem;
+      }
+
+      .shop-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+      .shop-header h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 0.05em;
+      }
+      .shop-header h1 span {
+        color: var(--amber);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+
+      /* ══ PRODUCT CARD — NON TOUCHÉ ══ */
+      .product-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.2s;
+        position: relative;
+      }
+      .product-card:hover {
+        border-color: var(--amber);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(245, 158, 11, 0.1);
+      }
+
+      .product-img {
+        width: 100%;
+        height: 170px;
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: var(--text3);
+      }
+
+      .promo-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--amber);
+        color: #000;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 3px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+
+      .product-body {
+        padding: 1rem;
+      }
+      .product-cat {
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--amber);
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      .product-name {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 0.35rem;
+        line-height: 1.3;
+      }
+      .product-ref {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        color: var(--text3);
+        margin-bottom: 0.75rem;
+      }
+      .product-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .product-price {
+        display: flex;
+        flex-direction: column;
+      }
+      .price-main {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.35rem;
+        color: var(--text);
+        letter-spacing: 0.03em;
+      }
+      .price-original {
+        font-size: 0.75rem;
+        color: var(--text3);
+        text-decoration: line-through;
+      }
+      .price-unit {
+        font-size: 0.65rem;
+        color: var(--text3);
+      }
+      .stock-badge {
+        font-size: 0.7rem;
+        font-family: "JetBrains Mono", monospace;
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+      .stock-ok {
+        background: rgba(34, 197, 94, 0.12);
+        color: var(--green);
+      }
+      .stock-low {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--red);
+      }
+      .add-to-cart {
+        width: 100%;
+        margin-top: 0.75rem;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        padding: 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .add-to-cart:hover {
+        background: var(--amber);
+        color: #000;
+        border-color: var(--amber);
+      }
+      .add-to-cart:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .add-to-cart:disabled:hover {
+        background: var(--bg3);
+        color: var(--text);
+        border-color: var(--border);
+      }
+
+      /* ── CART PANEL ── */
+      .cart-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 200;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .cart-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .cart-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 380px;
+        background: var(--bg2);
+        border-left: 1px solid var(--border);
+        z-index: 201;
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-panel.open {
+        transform: none;
+      }
+
+      .cart-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .cart-header h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+      }
+
+      .close-btn {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text2);
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .close-btn:hover {
+        color: var(--text);
+        border-color: var(--text3);
+      }
+
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem 1.5rem;
+      }
+
+      .cart-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .cart-item-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+      }
+      .cart-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .cart-item-name {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cart-item-price {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--amber);
+      }
+
+      .qty-control {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .qty-btn {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text);
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .qty-btn:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+      .qty-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        min-width: 20px;
+        text-align: center;
+      }
+
+      .cart-footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .cart-total-label {
+        color: var(--text2);
+        font-size: 0.85rem;
+      }
+      .cart-total-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        color: var(--amber);
+      }
+
+      .checkout-btn {
+        width: 100%;
+        background: var(--amber);
+        border: none;
+        color: #000;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.85rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .checkout-btn:hover {
+        background: var(--amber2);
+      }
+
+      /* ── MODALS ── */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .modal {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        width: 420px;
+        max-width: calc(100vw - 2rem);
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+        padding: 2rem;
+        animation: slideUp 0.3s ease;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      .modal h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+      }
+      .modal h2 span {
+        color: var(--amber);
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      .form-label {
+        font-size: 0.78rem;
+        color: var(--text2);
+        margin-bottom: 0.35rem;
+        display: block;
+        letter-spacing: 0.05em;
+      }
+
+      .form-input {
+        width: 100%;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.65rem 0.9rem;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .form-input:focus {
+        border-color: var(--amber);
+      }
+
+      .form-select {
+        width: 100%;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.65rem 0.9rem;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn-primary {
+        flex: 1;
+        background: var(--amber);
+        border: none;
+        color: #000;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.88rem;
+        padding: 0.7rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--amber2);
+      }
+
+      .btn-ghost {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .btn-ghost:hover {
+        border-color: var(--text3);
+        color: var(--text);
+      }
+
+      .tab-toggle {
+        display: flex;
+        background: var(--bg3);
+        border-radius: 8px;
+        padding: 3px;
+        margin-bottom: 1.5rem;
+      }
+      .tab-toggle button {
+        flex: 1;
+        background: none;
+        border: none;
+        color: var(--text2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        padding: 0.45rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .tab-toggle button.active {
+        background: var(--bg2);
+        color: var(--text);
+      }
+
+      .alert {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        display: none;
+      }
+      .alert.show {
+        display: block;
+      }
+      .alert.error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+      }
+      .alert.success {
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #86efac;
+      }
+
+      /* ── ADMIN ── */
+      .admin-layout {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        min-height: calc(100vh - 60px);
+      }
+
+      .admin-sidebar {
+        background: var(--bg2);
+        border-right: 1px solid var(--border);
+        padding: 1.5rem 0.75rem;
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+
+      .admin-nav-btn {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: var(--text2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.6rem 0.85rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.15rem;
+      }
+      .admin-nav-btn:hover {
+        background: var(--bg3);
+        color: var(--text);
+      }
+      .admin-nav-btn.active {
+        background: var(--amber-dim);
+        color: var(--amber);
+      }
+
+      .admin-main {
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .admin-section {
+        display: none;
+      }
+      .admin-section.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.75rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-title span {
+        color: var(--amber);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem;
+        transition: border-color 0.2s;
+      }
+      .stat-card:hover {
+        border-color: var(--amber);
+      }
+      .stat-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 0.5rem;
+      }
+      .stat-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        color: var(--amber);
+        letter-spacing: 0.02em;
+        line-height: 1;
+      }
+      .stat-sub {
+        font-size: 0.72rem;
+        color: var(--text3);
+        margin-top: 0.35rem;
+      }
+
+      /* Table : le conteneur gère le scroll horizontal */
+      .table-wrap {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 560px;
+      }
+      thead {
+        background: var(--bg3);
+      }
+      th {
+        text-align: left;
+        padding: 0.85rem 1rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text3);
+        font-weight: 600;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.85rem;
+        color: var(--text2);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(245, 158, 11, 0.03);
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        color: var(--text);
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .s-pending {
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--amber);
+      }
+      .s-confirmed {
+        background: rgba(59, 130, 246, 0.12);
+        color: #60a5fa;
+      }
+      .s-prep {
+        background: rgba(168, 85, 247, 0.12);
+        color: #c084fc;
+      }
+      .s-shipped {
+        background: rgba(99, 102, 241, 0.12);
+        color: #818cf8;
+      }
+      .s-delivered {
+        background: rgba(34, 197, 94, 0.12);
+        color: var(--green);
+      }
+      .s-cancelled {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--red);
+      }
+      .s-paid {
+        background: rgba(34, 197, 94, 0.12);
+        color: var(--green);
+      }
+      .s-waiting {
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--amber);
+      }
+      .s-failed {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--red);
+      }
+
+      .action-btn {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text2);
+        font-size: 0.75rem;
+        font-family: "DM Sans", sans-serif;
+        padding: 0.3rem 0.65rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-right: 4px;
+        white-space: nowrap;
+      }
+      .action-btn:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+      .action-btn.danger:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      .table-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .add-btn {
+        background: var(--amber);
+        border: none;
+        color: #000;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 600;
+        font-size: 0.82rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        white-space: nowrap;
+      }
+      .add-btn:hover {
+        background: var(--amber2);
+      }
+
+      .status-select {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.78rem;
+        padding: 0.3rem 0.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        outline: none;
+      }
+
+      .form-grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text3);
+      }
+      .empty-state .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .empty-state p {
+        font-size: 0.9rem;
+      }
+
+      .loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        color: var(--text3);
+        gap: 0.75rem;
+      }
+      .spinner {
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--border);
+        border-top-color: var(--amber);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        flex-shrink: 0;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .toast-container {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .toast {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.85rem;
+        min-width: 260px;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        animation:
+          slideInRight 0.3s ease,
+          fadeOut 0.3s ease 2.7s forwards;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+      .toast.success {
+        border-left: 3px solid var(--green);
+      }
+      .toast.error {
+        border-left: 3px solid var(--red);
+      }
+      .toast.info {
+        border-left: 3px solid var(--amber);
+      }
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          transform: translateX(10px);
+        }
+      }
+
+      /* ══════════════════════════════════
+         MOBILE BOTTOM NAV — Admin only
+         Caché par défaut, affiché par JS
+      ══════════════════════════════════ */
+      .mob-bottom-nav {
+        display: none; /* JS le passe à flex quand on est en admin */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--mob-nav-h);
+        background: rgba(22, 22, 19, 0.98);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border);
+        z-index: 150;
+        align-items: stretch;
+        justify-content: space-around;
+      }
+
+      .mob-nav-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        background: none;
+        border: none;
+        color: var(--text3);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.62rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.15s;
+        padding: 0.5rem 0.25rem;
+        letter-spacing: 0.02em;
+      }
+      .mob-nav-btn .mi {
+        font-size: 1.3rem;
+        line-height: 1;
+      }
+      .mob-nav-btn:hover {
+        color: var(--text2);
+      }
+      .mob-nav-btn.active {
+        color: var(--amber);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        /* Header compact */
+        header {
+          padding: 0 1rem;
+          height: 56px;
+        }
+        .logo {
+          font-size: 1.5rem;
+        }
+        /* Masquer label "Panier" sur mobile */
+        .cart-btn .cart-label {
+          display: none;
+        }
+        /* Masquer nom utilisateur sur mobile */
+        .user-chip #user-name {
+          display: none;
+        }
+
+        /* Boutique : 1 colonne */
+        .shop-layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .shop-main {
+          padding: 1rem;
+        }
+        .products-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+
+        /* Admin : pleine largeur, sidebar masquée */
+        .admin-layout {
+          grid-template-columns: 1fr;
+        }
+        .admin-sidebar {
+          display: none;
+        }
+        /* Espace pour la bottom nav */
+        .admin-main {
+          padding: 1rem;
+          padding-bottom: calc(var(--mob-nav-h) + 1rem);
+        }
+
+        /* Stats 2 colonnes */
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+        }
+        .stat-card {
+          padding: 1rem;
+        }
+        .stat-val {
+          font-size: 1.6rem;
+        }
+
+        /* Cart pleine largeur */
+        .cart-panel {
+          width: 100%;
+          border-left: none;
+        }
+
+        /* Toasts au-dessus de la bottom nav */
+        .toast-container {
+          bottom: calc(var(--mob-nav-h) + 0.75rem);
+          right: 1rem;
+          left: 1rem;
+        }
+        .toast {
+          min-width: unset;
+        }
+
+        /* Modals : largeur pleine et centré */
+        .modal {
+          padding: 1.5rem;
+          border-radius: 12px;
+          max-width: calc(100vw - 1.5rem);
+          max-height: calc(100vh - 1.5rem);
+        }
+        .modal h2 {
+          font-size: 1.4rem;
+          margin-bottom: 1rem;
+        }
+        .form-grid2 {
+          grid-template-columns: 1fr;
+        }
+
+        /* Titres admin */
+        .section-title {
+          font-size: 1.35rem;
+          margin-bottom: 1rem;
+        }
+        .table-toolbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 0 0.75rem;
+        }
+        .auth-btn {
+          padding: 0.4rem 0.65rem;
+          font-size: 0.78rem;
+        }
+        .user-chip {
+          padding: 0.3rem 0.5rem;
+        }
+        .user-chip .role {
+          font-size: 0.68rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div style="display: flex; align-items: center; gap: 0.25rem">
+        <div class="logo" onclick="navigate('shop')">⚙ <span>HER</span></div>
+        <nav>
+          <button
+            class="nav-btn active"
+            id="nav-shop"
+            onclick="navigate('shop')"
+          >
+            Boutique
+          </button>
+          <button
+            class="nav-btn"
+            id="nav-admin"
+            onclick="navigate('admin')"
+            style="display: none"
+          >
+            Admin
+          </button>
+        </nav>
+      </div>
+      <div class="header-right">
+        <button class="cart-btn" onclick="toggleCart()">
+          🛒 <span class="cart-label">Panier</span>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <div id="user-info" style="display: none" class="user-chip">
+          <span id="user-name">—</span>
+          <span class="role" id="user-role">—</span>
+          <button class="logout-x" onclick="logout()">✕</button>
+        </div>
+        <button class="auth-btn" id="auth-btn" onclick="openAuth()">
+          Connexion
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE BOUTIQUE -->
+    <div id="page-shop" class="page active">
+      <div class="shop-layout">
+        <aside class="sidebar">
+          <input
+            class="search-box"
+            type="text"
+            placeholder="🔍 Rechercher…"
+            id="search-input"
+            oninput="renderProducts()"
+          />
+          <div class="sidebar-title">Catégories</div>
+          <button
+            class="filter-btn active"
+            id="cat-all"
+            onclick="setCategory('', this)"
+          >
+            <span class="dot"></span>Tout voir
+          </button>
+          <button class="filter-btn" onclick="setCategory('Outillage', this)">
+            <span class="dot"></span>Outillage
+          </button>
+          <button class="filter-btn" onclick="setCategory('Visserie', this)">
+            <span class="dot"></span>Visserie
+          </button>
+          <button class="filter-btn" onclick="setCategory('Peinture', this)">
+            <span class="dot"></span>Peinture
+          </button>
+          <button class="filter-btn" onclick="setCategory('Électricité', this)">
+            <span class="dot"></span>Électricité
+          </button>
+          <button class="filter-btn" onclick="setCategory('Plomberie', this)">
+            <span class="dot"></span>Plomberie
+          </button>
+          <button class="filter-btn" onclick="setCategory('Serrurerie', this)">
+            <span class="dot"></span>Serrurerie
+          </button>
+          <button class="filter-btn" onclick="setCategory('Jardinage', this)">
+            <span class="dot"></span>Jardinage
+          </button>
+          <button class="filter-btn" onclick="setCategory('Sécurité', this)">
+            <span class="dot"></span>Sécurité
+          </button>
+          <br />
+          <div class="sidebar-title">Filtres</div>
+          <button class="filter-btn" id="promo-filter" onclick="togglePromo()">
+            <span class="dot"></span>En promotion
+          </button>
+        </aside>
+        <main class="shop-main">
+          <div class="shop-header">
+            <h1>CATALOGUE <span id="cat-label"></span></h1>
+            <span
+              id="product-count"
+              style="
+                color: var(--text3);
+                font-size: 0.82rem;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+              "
+            ></span>
+          </div>
+          <div id="products-grid" class="products-grid">
+            <div class="loader">
+              <div class="spinner"></div>
+              Chargement…
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- PAGE ADMIN -->
+    <div id="page-admin" class="page">
+      <div class="admin-layout">
+        <aside class="admin-sidebar">
+          <div
+            style="
+              padding: 0 0.25rem 1rem;
+              font-family: &quot;Bebas Neue&quot;, sans-serif;
+              font-size: 0.8rem;
+              letter-spacing: 0.15em;
+              color: var(--text3);
+            "
+          >
+            ADMINISTRATION
+          </div>
+          <button
+            class="admin-nav-btn active"
+            id="desk-btn-dashboard"
+            onclick="adminNav('dashboard', this)"
+          >
+            📊 Tableau de bord
+          </button>
+          <button
+            class="admin-nav-btn"
+            id="desk-btn-orders"
+            onclick="adminNav('orders', this)"
+          >
+            📦 Commandes
+          </button>
+          <button
+            class="admin-nav-btn"
+            id="desk-btn-products"
+            onclick="adminNav('products', this)"
+          >
+            🔧 Produits
+          </button>
+        </aside>
+        <div class="admin-main">
+          <!-- DASHBOARD -->
+          <div id="admin-dashboard" class="admin-section active">
+            <div class="section-title">Tableau <span>de bord</span></div>
+            <div class="stats-grid" id="stats-grid">
+              <div class="loader"><div class="spinner"></div></div>
+            </div>
+            <div
+              class="section-title"
+              style="font-size: 1.3rem; margin-top: 0.5rem"
+            >
+              Dernières <span>commandes</span>
+            </div>
+            <div class="table-wrap" id="recent-orders-wrap">
+              <div class="loader"><div class="spinner"></div></div>
+            </div>
+          </div>
+          <!-- COMMANDES -->
+          <div id="admin-orders" class="admin-section">
+            <div class="section-title">Gestion des <span>commandes</span></div>
+            <div class="table-wrap" id="orders-wrap">
+              <div class="loader"><div class="spinner"></div></div>
+            </div>
+          </div>
+          <!-- PRODUITS -->
+          <div id="admin-products" class="admin-section">
+            <div class="table-toolbar">
+              <div class="section-title" style="margin-bottom: 0">
+                Gestion des <span>produits</span>
+              </div>
+              <button class="add-btn" onclick="openProductModal()">
+                + Nouveau produit
+              </button>
+            </div>
+            <div class="table-wrap" id="admin-products-wrap">
+              <div class="loader"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV (admin seulement, géré par JS) -->
+    <nav class="mob-bottom-nav" id="mob-bottom-nav">
+      <button
+        class="mob-nav-btn active"
+        id="mob-btn-dashboard"
+        onclick="adminNavMobile('dashboard')"
+      >
+        <span class="mi">📊</span>Bord
+      </button>
+      <button
+        class="mob-nav-btn"
+        id="mob-btn-orders"
+        onclick="adminNavMobile('orders')"
+      >
+        <span class="mi">📦</span>Commandes
+      </button>
+      <button
+        class="mob-nav-btn"
+        id="mob-btn-products"
+        onclick="adminNavMobile('products')"
+      >
+        <span class="mi">🔧</span>Produits
+      </button>
+      <button class="mob-nav-btn" onclick="navigate('shop')">
+        <span class="mi">🏪</span>Boutique
+      </button>
+    </nav>
+
+    <!-- CART PANEL -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-panel" id="cart-panel">
+      <div class="cart-header">
+        <h2>MON PANIER</h2>
+        <button class="close-btn" onclick="toggleCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cart-items-list"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-val" id="cart-total">0 Ar</span>
+        </div>
+        <button class="checkout-btn" onclick="openCheckout()">
+          Commander →
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL AUTH -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal">
+        <h2>ESPACE <span>CLIENT</span></h2>
+        <div class="tab-toggle">
+          <button
+            class="active"
+            id="tab-login"
+            onclick="switchAuthTab('login')"
+          >
+            Connexion
+          </button>
+          <button id="tab-register" onclick="switchAuthTab('register')">
+            Inscription
+          </button>
+        </div>
+        <div id="auth-alert" class="alert error"></div>
+        <div id="login-form">
+          <div class="form-group">
+            <label class="form-label">EMAIL</label
+            ><input
+              class="form-input"
+              type="email"
+              id="login-email"
+              placeholder="vous@example.com"
+              onkeydown="if (event.key === 'Enter') doLogin();"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">MOT DE PASSE</label
+            ><input
+              class="form-input"
+              type="password"
+              id="login-password"
+              placeholder="••••••••"
+              onkeydown="if (event.key === 'Enter') doLogin();"
+            />
+          </div>
+          <div class="modal-actions">
+            <button class="btn-primary" onclick="doLogin()">
+              Se connecter
+            </button>
+            <button class="btn-ghost" onclick="closeModal('auth-modal')">
+              Annuler
+            </button>
+          </div>
+        </div>
+        <div id="register-form" style="display: none">
+          <div class="form-group">
+            <label class="form-label">NOM COMPLET</label
+            ><input
+              class="form-input"
+              type="text"
+              id="reg-nom"
+              placeholder="Jean Rakoto"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">EMAIL</label
+            ><input
+              class="form-input"
+              type="email"
+              id="reg-email"
+              placeholder="vous@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">MOT DE PASSE</label
+            ><input
+              class="form-input"
+              type="password"
+              id="reg-password"
+              placeholder="Min. 6 caractères"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">TÉLÉPHONE</label
+            ><input
+              class="form-input"
+              type="text"
+              id="reg-tel"
+              placeholder="+261 34 00 000 00"
+            />
+          </div>
+          <div class="modal-actions">
+            <button class="btn-primary" onclick="doRegister()">
+              S'inscrire
+            </button>
+            <button class="btn-ghost" onclick="closeModal('auth-modal')">
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CHECKOUT -->
+    <div class="modal-overlay" id="checkout-modal">
+      <div class="modal" style="width: 500px">
+        <h2>VALIDER <span>COMMANDE</span></h2>
+        <div id="checkout-alert" class="alert error"></div>
+        <div class="form-group">
+          <label class="form-label">MÉTHODE DE PAIEMENT</label>
+          <select class="form-select" id="checkout-payment">
+            <option>Espèces</option>
+            <option>Carte bancaire</option>
+            <option>Virement</option>
+            <option>Mobile Money</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">RUE / ADRESSE</label
+          ><input
+            class="form-input"
+            id="checkout-rue"
+            placeholder="Ex: 123 Avenue de l'Indépendance"
+          />
+        </div>
+        <div class="form-grid2">
+          <div class="form-group">
+            <label class="form-label">VILLE</label
+            ><input
+              class="form-input"
+              id="checkout-ville"
+              placeholder="Antananarivo"
+              value="Antananarivo"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CODE POSTAL</label
+            ><input
+              class="form-input"
+              id="checkout-cp"
+              placeholder="101"
+              value="101"
+            />
+          </div>
+        </div>
+        <div
+          style="
+            background: var(--bg3);
+            border-radius: 8px;
+            padding: 0.85rem;
+            margin-bottom: 1rem;
+          "
+        >
+          <div
+            style="
+              color: var(--text2);
+              font-size: 0.78rem;
+              margin-bottom: 0.4rem;
+            "
+          >
+            Récapitulatif
+          </div>
+          <div
+            id="checkout-summary"
+            style="color: var(--text3); font-size: 0.78rem; line-height: 1.6"
+          ></div>
+          <div
+            style="
+              color: var(--amber);
+              font-family: &quot;Bebas Neue&quot;, sans-serif;
+              font-size: 1.4rem;
+              margin-top: 0.4rem;
+            "
+            id="checkout-total-display"
+          ></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="placeOrder()">
+            Confirmer →
+          </button>
+          <button class="btn-ghost" onclick="closeModal('checkout-modal')">
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PRODUIT (admin) -->
+    <div class="modal-overlay" id="product-modal">
+      <div class="modal" style="width: 560px">
+        <h2 id="product-modal-title">NOUVEAU <span>PRODUIT</span></h2>
+        <input type="hidden" id="p-id" />
+        <div class="form-grid2">
+          <div class="form-group" style="grid-column: 1/-1">
+            <label class="form-label">NOM</label
+            ><input
+              class="form-input"
+              id="p-nom"
+              placeholder="Nom du produit"
+            />
+          </div>
+          <div class="form-group" style="grid-column: 1/-1">
+            <label class="form-label">DESCRIPTION</label
+            ><input
+              class="form-input"
+              id="p-desc"
+              placeholder="Description courte"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CATÉGORIE</label>
+            <select class="form-select" id="p-cat">
+              <option>Outillage</option>
+              <option>Visserie</option>
+              <option>Peinture</option>
+              <option>Électricité</option>
+              <option>Plomberie</option>
+              <option>Serrurerie</option>
+              <option>Jardinage</option>
+              <option>Sécurité</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">MARQUE</label
+            ><input class="form-input" id="p-marque" placeholder="Marque" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">PRIX (Ar)</label
+            ><input
+              class="form-input"
+              type="number"
+              id="p-prix"
+              placeholder="0"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">STOCK</label
+            ><input
+              class="form-input"
+              type="number"
+              id="p-stock"
+              placeholder="0"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">RÉFÉRENCE</label
+            ><input class="form-input" id="p-ref" placeholder="EX-REF-001" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">PRIX PROMO (Ar, optionnel)</label
+            ><input
+              class="form-input"
+              type="number"
+              id="p-promo"
+              placeholder="Laisser vide si aucune"
+              min="0"
+            />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="saveProduct()">
+            Enregistrer
+          </button>
+          <button class="btn-ghost" onclick="closeModal('product-modal')">
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast-container" id="toasts"></div>
+
+    <script>
+      const API = "/api";
+
+      let token = localStorage.getItem("fb_token") || null;
+      let user = JSON.parse(localStorage.getItem("fb_user") || "null");
+      let cart = JSON.parse(localStorage.getItem("fb_cart") || "[]");
+      let products = [];
+      let activeCategory = "";
+      let promoOnly = false;
+
+      const ICONS = {
+        Outillage: "🔧",
+        Visserie: "🪛",
+        Peinture: "🎨",
+        Électricité: "⚡",
+        Plomberie: "🚿",
+        Serrurerie: "🔐",
+        Jardinage: "🌱",
+        Sécurité: "🛡️",
+      };
+
+      const STATUS_MAP = {
+        "En attente": "s-pending",
+        Confirmée: "s-confirmed",
+        "En préparation": "s-prep",
+        Expédiée: "s-shipped",
+        Livrée: "s-delivered",
+        Annulée: "s-cancelled",
+      };
+      const PAY_MAP = {
+        "En attente": "s-waiting",
+        Payé: "s-paid",
+        Échoué: "s-failed",
+        Remboursé: "s-shipped",
+      };
+      const ORDER_STATS = [
+        "En attente",
+        "Confirmée",
+        "En préparation",
+        "Expédiée",
+        "Livrée",
+        "Annulée",
+      ];
+
+      async function api(method, path, body) {
+        const opts = {
+          method,
+          headers: { "Content-Type": "application/json" },
+        };
+        if (token) opts.headers["Authorization"] = `Bearer ${token}`;
+        if (body) opts.body = JSON.stringify(body);
+        try {
+          const r = await fetch(API + path, opts);
+          const d = await r.json();
+          return { ok: r.ok, data: d };
+        } catch (e) {
+          return {
+            ok: false,
+            data: { message: "Erreur réseau : " + e.message },
+          };
+        }
+      }
+
+      const fmt = (n) => Number(n).toLocaleString("fr-MG") + " Ar";
+
+      function toast(msg, type = "info") {
+        const icons = { success: "✅", error: "❌", info: "ℹ️" };
+        const el = document.createElement("div");
+        el.className = `toast ${type}`;
+        el.innerHTML = `<span>${icons[type]}</span> ${msg}`;
+        document.getElementById("toasts").appendChild(el);
+        setTimeout(() => el.remove(), 3200);
+      }
+
+      function showAlert(id, msg, type = "error") {
+        const el = document.getElementById(id);
+        el.textContent = msg;
+        el.className = `alert ${type} show`;
+      }
+      function hideAlert(id) {
+        document.getElementById(id).className = "alert";
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("open");
+      }
+
+      /* ── NAVIGATION ── */
+      function navigate(page) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("page-" + page).classList.add("active");
+        const nb = document.getElementById("nav-" + page);
+        if (nb) nb.classList.add("active");
+
+        // Afficher/masquer la bottom nav admin
+        const mbn = document.getElementById("mob-bottom-nav");
+        if (page === "admin") {
+          mbn.style.display = "flex";
+          loadAdminDashboard();
+          // Reset du bouton actif
+          setMobNavActive("dashboard");
+          // Reset section active
+          setAdminSection("dashboard");
+        } else {
+          mbn.style.display = "none";
+        }
+      }
+
+      function setAdminSection(section) {
+        document
+          .querySelectorAll(".admin-section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("admin-" + section).classList.add("active");
+      }
+
+      function setDeskNavActive(section) {
+        document
+          .querySelectorAll(".admin-nav-btn")
+          .forEach((b) => b.classList.remove("active"));
+        const btn = document.getElementById("desk-btn-" + section);
+        if (btn) btn.classList.add("active");
+      }
+
+      function setMobNavActive(section) {
+        document
+          .querySelectorAll(".mob-nav-btn")
+          .forEach((b) => b.classList.remove("active"));
+        const btn = document.getElementById("mob-btn-" + section);
+        if (btn) btn.classList.add("active");
+      }
+
+      /* Navigation admin desktop (sidebar) */
+      function adminNav(section, btn) {
+        setAdminSection(section);
+        setDeskNavActive(section);
+        setMobNavActive(section);
+        if (section === "dashboard") loadAdminDashboard();
+        if (section === "orders") loadAdminOrders();
+        if (section === "products") loadAdminProducts();
+      }
+
+      /* Navigation admin mobile (bottom bar) */
+      function adminNavMobile(section) {
+        setAdminSection(section);
+        setMobNavActive(section);
+        setDeskNavActive(section);
+        if (section === "dashboard") loadAdminDashboard();
+        if (section === "orders") loadAdminOrders();
+        if (section === "products") loadAdminProducts();
+      }
+
+      /* ── AUTH ── */
+      function openAuth() {
+        document.getElementById("auth-modal").classList.add("open");
+      }
+
+      function switchAuthTab(t) {
+        document.getElementById("login-form").style.display =
+          t === "login" ? "" : "none";
+        document.getElementById("register-form").style.display =
+          t === "register" ? "" : "none";
+        document
+          .getElementById("tab-login")
+          .classList.toggle("active", t === "login");
+        document
+          .getElementById("tab-register")
+          .classList.toggle("active", t === "register");
+        hideAlert("auth-alert");
+      }
+
+      async function doLogin() {
+        hideAlert("auth-alert");
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        if (!email || !password)
+          return showAlert("auth-alert", "Veuillez remplir tous les champs.");
+        const { ok, data } = await api("POST", "/auth/login", {
+          email,
+          password,
+        });
+        if (!ok)
+          return showAlert(
+            "auth-alert",
+            data.message || "Erreur de connexion.",
+          );
+        applyUser(data.data);
+        closeModal("auth-modal");
+        toast("Bienvenue " + data.data.nom + " !", "success");
+      }
+
+      async function doRegister() {
+        hideAlert("auth-alert");
+        const nom = document.getElementById("reg-nom").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const password = document.getElementById("reg-password").value;
+        const telephone = document.getElementById("reg-tel").value.trim();
+        if (!nom || !email || !password)
+          return showAlert(
+            "auth-alert",
+            "Veuillez remplir les champs obligatoires.",
+          );
+        const { ok, data } = await api("POST", "/auth/register", {
+          nom,
+          email,
+          password,
+          telephone,
+        });
+        if (!ok)
+          return showAlert("auth-alert", data.message || "Erreur inscription.");
+        applyUser(data.data);
+        closeModal("auth-modal");
+        toast("Compte créé ! Bienvenue " + data.data.nom, "success");
+      }
+
+      function applyUser(u) {
+        token = u.token;
+        user = u;
+        localStorage.setItem("fb_token", token);
+        localStorage.setItem("fb_user", JSON.stringify(u));
+        document.getElementById("user-info").style.display = "flex";
+        document.getElementById("auth-btn").style.display = "none";
+        document.getElementById("user-name").textContent = u.nom;
+        document.getElementById("user-role").textContent = u.role.toUpperCase();
+        if (u.role === "admin")
+          document.getElementById("nav-admin").style.display = "";
+      }
+
+      function logout() {
+        token = null;
+        user = null;
+        localStorage.removeItem("fb_token");
+        localStorage.removeItem("fb_user");
+        document.getElementById("user-info").style.display = "none";
+        document.getElementById("auth-btn").style.display = "";
+        document.getElementById("nav-admin").style.display = "none";
+        navigate("shop");
+        toast("Vous êtes déconnecté.", "info");
+      }
+
+      /* ── BOUTIQUE ── */
+      async function loadProducts() {
+        const { ok, data } = await api("GET", "/products");
+        if (!ok) {
+          document.getElementById("products-grid").innerHTML =
+            `<div class="empty-state"><div class="icon">⚠️</div><p>${data.message}</p></div>`;
+          return;
+        }
+        products = data.data;
+        renderProducts();
+      }
+
+      function renderProducts() {
+        const search = document
+          .getElementById("search-input")
+          .value.toLowerCase();
+        let list = products;
+        if (activeCategory)
+          list = list.filter((p) => p.categorie === activeCategory);
+        if (promoOnly) list = list.filter((p) => p.enPromo);
+        if (search)
+          list = list.filter(
+            (p) =>
+              p.nom.toLowerCase().includes(search) ||
+              p.description.toLowerCase().includes(search) ||
+              (p.marque || "").toLowerCase().includes(search),
+          );
+
+        document.getElementById("product-count").textContent =
+          list.length + " produit(s)";
+        document.getElementById("cat-label").textContent = activeCategory;
+
+        const grid = document.getElementById("products-grid");
+        if (!list.length) {
+          grid.innerHTML =
+            '<div class="empty-state"><div class="icon">🔍</div><p>Aucun produit trouvé.</p></div>';
+          return;
+        }
+
+        grid.innerHTML = list
+          .map((p) => {
+            const price = p.enPromo && p.prixPromo ? p.prixPromo : p.prix;
+            return `
+    <div class="product-card">
+      ${p.enPromo ? '<div class="promo-badge">PROMO</div>' : ""}
+      <div class="product-img">${ICONS[p.categorie] || "📦"}</div>
+      <div class="product-body">
+        <div class="product-cat">${p.categorie}</div>
+        <div class="product-name">${p.nom}</div>
+        <div class="product-ref">${p.reference}</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-main">${fmt(price)}</div>
+            ${p.enPromo && p.prixPromo ? `<div class="price-original">${fmt(p.prix)}</div>` : ""}
+            <div class="price-unit">par unité</div>
+          </div>
+          <span class="stock-badge ${p.stock > 5 ? "stock-ok" : "stock-low"}">${p.stock} en stock</span>
+        </div>
+        <button class="add-to-cart" onclick="addToCart('${p._id}')" ${p.stock === 0 ? "disabled" : ""}>
+          ${p.stock === 0 ? "✕ Rupture de stock" : "+ Ajouter au panier"}
+        </button>
+      </div>
+    </div>`;
+          })
+          .join("");
+      }
+
+      function setCategory(cat, btn) {
+        activeCategory = cat;
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) => b.classList.remove("active"));
+        if (btn) btn.classList.add("active");
+        renderProducts();
+      }
+
+      function togglePromo() {
+        promoOnly = !promoOnly;
+        document
+          .getElementById("promo-filter")
+          .classList.toggle("active", promoOnly);
+        renderProducts();
+      }
+
+      /* ── PANIER ── */
+      function addToCart(id) {
+        const p = products.find((x) => x._id === id);
+        if (!p) return;
+        const idx = cart.findIndex((c) => c._id === id);
+        if (idx >= 0) {
+          if (cart[idx].qty >= p.stock) {
+            toast("Stock maximum atteint !", "error");
+            return;
+          }
+          cart[idx].qty++;
+        } else {
+          cart.push({
+            _id: p._id,
+            nom: p.nom,
+            prix: p.enPromo && p.prixPromo ? p.prixPromo : p.prix,
+            qty: 1,
+            categorie: p.categorie,
+            stock: p.stock,
+          });
+        }
+        saveCart();
+        renderCart();
+        toast(p.nom + " ajouté au panier", "success");
+      }
+
+      function changeQty(id, delta) {
+        const idx = cart.findIndex((c) => c._id === id);
+        if (idx < 0) return;
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+        saveCart();
+        renderCart();
+      }
+
+      function saveCart() {
+        localStorage.setItem("fb_cart", JSON.stringify(cart));
+      }
+
+      function renderCart() {
+        const total = cart.reduce((s, c) => s + c.prix * c.qty, 0);
+        const totalQty = cart.reduce((s, c) => s + c.qty, 0);
+        document.getElementById("cart-count").textContent = totalQty;
+        document.getElementById("cart-total").textContent = fmt(total);
+
+        const list = document.getElementById("cart-items-list");
+        if (!cart.length) {
+          list.innerHTML =
+            '<div class="empty-state"><div class="icon">🛒</div><p>Votre panier est vide.</p></div>';
+          return;
+        }
+        list.innerHTML = cart
+          .map(
+            (c) => `
+    <div class="cart-item">
+      <div class="cart-item-icon">${ICONS[c.categorie] || "📦"}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.nom}</div>
+        <div class="cart-item-price">${fmt(c.prix)}</div>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty('${c._id}',-1)">−</button>
+        <span class="qty-num">${c.qty}</span>
+        <button class="qty-btn" onclick="changeQty('${c._id}',1)">+</button>
+      </div>
+    </div>`,
+          )
+          .join("");
+      }
+
+      function toggleCart() {
+        document.getElementById("cart-panel").classList.toggle("open");
+        document.getElementById("cart-overlay").classList.toggle("open");
+      }
+
+      /* ── CHECKOUT ── */
+      function openCheckout() {
+        if (!user) {
+          toggleCart();
+          openAuth();
+          return;
+        }
+        if (!cart.length) {
+          toast("Votre panier est vide.", "error");
+          return;
+        }
+        const total = cart.reduce((s, c) => s + c.prix * c.qty, 0);
+        document.getElementById("checkout-summary").innerHTML = cart
+          .map((c) => `${c.nom} × ${c.qty} = ${fmt(c.prix * c.qty)}`)
+          .join("<br>");
+        document.getElementById("checkout-total-display").textContent =
+          fmt(total);
+        hideAlert("checkout-alert");
+        document.getElementById("checkout-modal").classList.add("open");
+      }
+
+      async function placeOrder() {
+        hideAlert("checkout-alert");
+        const body = {
+          produits: cart.map((c) => ({ produit: c._id, quantite: c.qty })),
+          methodePaiement: document.getElementById("checkout-payment").value,
+          adresseLivraison: {
+            rue: document.getElementById("checkout-rue").value,
+            ville: document.getElementById("checkout-ville").value,
+            codePostal: document.getElementById("checkout-cp").value,
+            pays: "Madagascar",
+          },
+        };
+        const { ok, data } = await api("POST", "/orders", body);
+        if (!ok)
+          return showAlert(
+            "checkout-alert",
+            data.message || "Erreur lors de la commande.",
+          );
+        cart = [];
+        saveCart();
+        renderCart();
+        closeModal("checkout-modal");
+        if (document.getElementById("cart-panel").classList.contains("open"))
+          toggleCart();
+        toast(
+          "🎉 Commande " + data.data.numeroCommande + " confirmée !",
+          "success",
+        );
+        await loadProducts();
+      }
+
+      /* ── ADMIN — DASHBOARD ── */
+      async function loadAdminDashboard() {
+        document.getElementById("stats-grid").innerHTML =
+          '<div class="loader"><div class="spinner"></div>Chargement…</div>';
+        document.getElementById("recent-orders-wrap").innerHTML =
+          '<div class="loader"><div class="spinner"></div>Chargement…</div>';
+
+        const [oRes, pRes] = await Promise.all([
+          api("GET", "/orders"),
+          api("GET", "/products"),
+        ]);
+        const orders = oRes.ok ? oRes.data.data : [];
+        const prods = pRes.ok ? pRes.data.data : [];
+
+        const revenue = orders
+          .filter((o) => o.statutPaiement === "Payé")
+          .reduce((s, o) => s + o.montantTotal, 0);
+        const pending = orders.filter(
+          (o) => o.statutCommande === "En attente",
+        ).length;
+        const lowStock = prods.filter((p) => p.stock <= 5).length;
+
+        document.getElementById("stats-grid").innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total commandes</div><div class="stat-val">${orders.length}</div><div class="stat-sub">toutes périodes</div></div>
+    <div class="stat-card"><div class="stat-label">En attente</div><div class="stat-val" style="color:var(--amber)">${pending}</div><div class="stat-sub">à traiter</div></div>
+    <div class="stat-card"><div class="stat-label">Chiffre d'affaires</div><div class="stat-val" style="font-size:1.3rem">${fmt(revenue)}</div><div class="stat-sub">commandes payées</div></div>
+    <div class="stat-card"><div class="stat-label">Produits</div><div class="stat-val">${prods.length}</div><div class="stat-sub">${lowStock} stock ≤ 5</div></div>
+  `;
+        document.getElementById("recent-orders-wrap").innerHTML =
+          renderOrdersTable(orders.slice(0, 8), true);
+      }
+
+      /* ── ADMIN — COMMANDES ── */
+      async function loadAdminOrders() {
+        document.getElementById("orders-wrap").innerHTML =
+          '<div class="loader"><div class="spinner"></div>Chargement…</div>';
+        const { ok, data } = await api("GET", "/orders");
+        if (!ok) return;
+        document.getElementById("orders-wrap").innerHTML = renderOrdersTable(
+          data.data,
+          false,
+        );
+      }
+
+      function renderOrdersTable(orders, mini) {
+        if (!orders.length)
+          return '<div class="empty-state"><div class="icon">📭</div><p>Aucune commande.</p></div>';
+        return `<table>
+    <thead><tr>
+      <th>N° Commande</th><th>Client</th><th>Montant</th><th>Statut</th><th>Paiement</th>
+      ${mini ? "" : "<th>Changer statut</th>"}
+    </tr></thead>
+    <tbody>${orders
+      .map(
+        (o) => `<tr>
+      <td class="mono">${o.numeroCommande || "—"}</td>
+      <td>${o.client?.nom || "—"}</td>
+      <td class="mono">${fmt(o.montantTotal)}</td>
+      <td>${badge(o.statutCommande, STATUS_MAP)}</td>
+      <td>${badge(o.statutPaiement, PAY_MAP)}</td>
+      ${
+        mini
+          ? ""
+          : ` <td>
+        <select class="status-select" onchange="updateOrderStatus('${o._id}',this.value)">
+          ${ORDER_STATS.map((s) => `<option ${s === o.statutCommande ? "selected" : ""}>${s}</option>`).join("")}
+        </select>
+      </td>`
+      }
+    </tr>`,
+      )
+      .join("")}</tbody>
+  </table>`;
+      }
+
+      function badge(val, map) {
+        return `<span class="status-badge ${map[val] || ""}">${val || "—"}</span>`;
+      }
+
+      async function updateOrderStatus(id, stat) {
+        const { ok, data } = await api("PATCH", `/orders/${id}/status`, {
+          statutCommande: stat,
+        });
+        if (!ok) return toast(data.message || "Erreur", "error");
+        toast("Statut mis à jour → " + stat, "success");
+      }
+
+      /* ── ADMIN — PRODUITS ── */
+      async function loadAdminProducts() {
+        document.getElementById("admin-products-wrap").innerHTML =
+          '<div class="loader"><div class="spinner"></div>Chargement…</div>';
+        const { ok, data } = await api("GET", "/products");
+        if (!ok) return;
+        const prods = data.data;
+        if (!prods.length) {
+          document.getElementById("admin-products-wrap").innerHTML =
+            '<div class="empty-state"><div class="icon">📦</div><p>Aucun produit.</p></div>';
+          return;
+        }
+        document.getElementById("admin-products-wrap").innerHTML = `<table>
+    <thead><tr><th>Référence</th><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Promo</th><th>Stock</th><th>Actions</th></tr></thead>
+    <tbody>${prods
+      .map(
+        (p) => `<tr>
+      <td class="mono">${p.reference}</td>
+      <td style="color:var(--text)">${p.nom}</td>
+      <td>${p.categorie}</td>
+      <td class="mono">${fmt(p.prix)}</td>
+      <td>${p.enPromo ? `<span class="status-badge s-paid">${fmt(p.prixPromo)}</span>` : "—"}</td>
+      <td><span class="stock-badge ${p.stock > 5 ? "stock-ok" : "stock-low"}">${p.stock}</span></td>
+      <td>
+        <button class="action-btn" onclick="editProduct('${p._id}')">Modifier</button>
+        <button class="action-btn danger" onclick="deleteProduct('${p._id}','${p.nom}')">Supprimer</button>
+      </td>
+    </tr>`,
+      )
+      .join("")}</tbody>
+  </table>`;
+      }
+
+      function openProductModal(data) {
+        const editing = !!data;
+        document.getElementById("product-modal-title").innerHTML = editing
+          ? "MODIFIER <span>PRODUIT</span>"
+          : "NOUVEAU <span>PRODUIT</span>";
+        document.getElementById("p-id").value = data?._id || "";
+        document.getElementById("p-nom").value = data?.nom || "";
+        document.getElementById("p-desc").value = data?.description || "";
+        document.getElementById("p-cat").value = data?.categorie || "Outillage";
+        document.getElementById("p-marque").value = data?.marque || "";
+        document.getElementById("p-prix").value = data?.prix || "";
+        document.getElementById("p-stock").value = data?.stock || "";
+        document.getElementById("p-ref").value = data?.reference || "";
+        document.getElementById("p-promo").value = data?.prixPromo || "";
+        document.getElementById("product-modal").classList.add("open");
+      }
+
+      async function editProduct(id) {
+        const { ok, data } = await api("GET", "/products/" + id);
+        if (!ok) return toast("Impossible de charger le produit.", "error");
+        openProductModal(data.data);
+      }
+
+      async function saveProduct() {
+        const id = document.getElementById("p-id").value;
+        const prixPromo = document.getElementById("p-promo").value;
+        const body = {
+          nom: document.getElementById("p-nom").value,
+          description: document.getElementById("p-desc").value,
+          categorie: document.getElementById("p-cat").value,
+          marque: document.getElementById("p-marque").value,
+          prix: Number(document.getElementById("p-prix").value),
+          stock: Number(document.getElementById("p-stock").value),
+          reference: document.getElementById("p-ref").value,
+          enPromo: !!prixPromo,
+          ...(prixPromo ? { prixPromo: Number(prixPromo) } : {}),
+        };
+        const { ok, data } = id
+          ? await api("PUT", "/products/" + id, body)
+          : await api("POST", "/products", body);
+        if (!ok) return toast(data.message || "Erreur", "error");
+        closeModal("product-modal");
+        toast(id ? "Produit mis à jour !" : "Produit créé !", "success");
+        loadAdminProducts();
+        loadProducts();
+      }
+
+      async function deleteProduct(id, nom) {
+        if (!confirm(`Supprimer "${nom}" ?`)) return;
+        const { ok, data } = await api("DELETE", "/products/" + id);
+        if (!ok) return toast(data.message || "Erreur", "error");
+        toast("Produit supprimé.", "success");
+        loadAdminProducts();
+        loadProducts();
+      }
+
+      /* ── INIT ── */
+      (function init() {
+        if (user && token) applyUser(user);
+        renderCart();
+        loadProducts();
+      })();
+    </script>
+  </body>
+</html>

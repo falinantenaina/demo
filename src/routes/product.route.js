@@ -35,6 +35,7 @@ router.get("/", async (req, res) => {
       data: products,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la récupération des produits.",
@@ -62,6 +63,7 @@ router.get("/:id", async (req, res) => {
       data: product,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la récupération du produit.",
@@ -82,6 +84,7 @@ router.post("/", protect, adminOnly, async (req, res) => {
       data: product,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la création du produit.",
@@ -112,6 +115,7 @@ router.put("/:id", protect, adminOnly, async (req, res) => {
       data: product,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la mise à jour du produit.",
@@ -139,6 +143,7 @@ router.delete("/:id", protect, adminOnly, async (req, res) => {
       message: "Produit supprimé avec succès.",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la suppression du produit.",
@@ -171,6 +176,7 @@ router.patch("/:id/stock", protect, adminOnly, async (req, res) => {
       data: product,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la mise à jour du stock.",

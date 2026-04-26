@@ -75,6 +75,7 @@ router.post("/", protect, async (req, res) => {
       data: populatedOrder,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la création de la commande.",
@@ -106,6 +107,7 @@ router.get("/", protect, async (req, res) => {
       data: orders,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la récupération des commandes.",
@@ -146,6 +148,7 @@ router.get("/:id", protect, async (req, res) => {
       data: order,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la récupération de la commande.",
@@ -191,6 +194,7 @@ router.patch("/:id/status", protect, adminOnly, async (req, res) => {
       data: order,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de la mise à jour du statut.",
@@ -247,6 +251,7 @@ router.delete("/:id", protect, async (req, res) => {
       message: "Commande annulée avec succès.",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Erreur lors de l'annulation de la commande.",

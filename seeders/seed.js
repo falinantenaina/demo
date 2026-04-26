@@ -18,7 +18,7 @@ const seedData = async () => {
     // Créer un admin
     const admin = await User.create({
       nom: "Administrateur",
-      email: "admin@demo.fr",
+      email: "admin@demo.mg",
       password: "Admin123",
       role: "admin",
       telephone: "+261 34 00 000 00",
@@ -33,7 +33,7 @@ const seedData = async () => {
     // Créer un client test
     const client = await User.create({
       nom: "Jean Rakoto",
-      email: "client@demo.g",
+      email: "client@demo.mg",
       password: "client123",
       role: "client",
       telephone: "+261 34 11 111 11",
