@@ -37,10 +37,9 @@ const userSchema = new mongoose.Schema({
 });
 
 // Hash password avant sauvegarde
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre("save", async function (n) {
+  if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 12);
-  next();
 });
 
 // Méthode pour vérifier le mot de passe
